@@ -1,5 +1,4 @@
 let page;
-
 beforeEach(async () => {
   page = await browser.newPage();
   await page.goto("https://github.com/team");
@@ -10,27 +9,27 @@ afterEach(() => {
 });
 
 describe("Github page tests", () => {
-  test("The h1 header content'", async () => {
+  it("The h1 header content'", async () => {
     const firstLink = await page.$("header div div a");
     await firstLink.click();
-    await page.waitForSelector('h1'), {timeout:10000};
+    await page.waitForSelector('h1');
     const title2 = await page.title();
-    expect(title2).toEqual('GitHub: Where the world builds software · GitHub');
-  });
+    expect(title2).toEqual('GitHub for teams · Build like the best teams on the planet · GitHub');
+  }, 120000);
 
-  test("The first link attribute", async () => {
-    const actual = await page.$eval("a", link => link.getAttribute('href'), {timeout:10000});
+  it("The first link attribute", async () => {
+    const actual = await page.$eval("a", link => link.getAttribute('href'));
     expect(actual).toEqual("#start-of-content");
-  });
+  }, 120000);
 
-  test("The page contains Sign in button", async () => {
+  it("The page contains Sign in button", async () => { 
     const btnSelector = ".btn-large-mktg.btn-mktg";
     await page.waitForSelector(btnSelector, {
       visible: true,
-    }, {timeout:10000});
+    });
     const actual = await page.$eval(btnSelector, link => link.textContent);
-    expect(actual).toContain("Sign up for free")
-  });
+    expect(actual).toContain("Get started with Team")
+  }, 120000);
 });
 
   describe("Github test1", () => {
